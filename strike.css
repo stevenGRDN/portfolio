@@ -1,0 +1,101 @@
+html{
+  box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before{
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  height: 100vh;
+  width:100vw;
+  /* display:grid; */
+  /* place-content: center; */
+  font-family: 'Outfit', 'Montserrat' ,Verdana, Geneva, Tahoma, sans-serif;
+  overflow-x: hidden;
+  /* position: relative; */
+}
+
+.main-page{
+  width:100%;
+  height: 100%;
+  /* background-color: red; */
+  display: grid;
+  place-content: center;
+  /* align-items: center; */
+  justify-items: center;
+
+}
+
+.fictional-names{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* justify-items: center; */
+  gap: 1rem;
+  column-gap: 4rem;
+}
+
+.text{
+  width:50%;
+  display: grid;
+  place-content: center;
+  border: 0.3rem solid #1b1b1b;
+  padding: 1.4rem 2rem 1.6rem 2rem;
+  font-size: 1.4rem;
+  
+}
+
+.brief-text{
+  font-size: 2rem;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+}
+
+.name{
+  /* background-color: #; */
+  font-size: 1.2rem;
+  font-weight: 700;
+  width:12rem;
+  text-align: center;
+  display: grid;
+  place-content: center;
+  border: 0.3rem solid #1b1b1b;
+  padding: 1rem 2rem;
+}
+
+.name-strike{
+  font-size: 1.6rem;
+  border: 0.3rem solid #000;
+  font-weight: 800;
+}
+
+.videos{
+  position: relative;
+  left:50%;
+  translate: -50% 0;
+  width: 100%;
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.video{
+  position: relative;
+  width: 25%;
+  aspect-ratio: 16/9;
+  height: auto;
+}
+
+.ytlink{
+  /* position: absolute; */
+  bottom: 0;
+  text-align: center;
+  width:25%;
+  translate: 0 200%;
+}
