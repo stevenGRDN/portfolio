@@ -284,6 +284,7 @@ rect{
   height:90%;
   aspect-ratio: 1/ 1.4;
   filter: saturate(0) contrast(1);
+  /* z-index: -1; */
   transition: all 0.3s cubic-bezier(0.8, 0, 0.2, 1);
 }
 
