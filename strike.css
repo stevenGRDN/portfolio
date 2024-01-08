@@ -83,6 +83,7 @@ body{
   justify-content: center;
   gap: 2rem;
   flex-wrap: wrap;
+  margin-bottom: 10%;
 }
 
 .video{
