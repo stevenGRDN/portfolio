@@ -4,6 +4,9 @@ projects.forEach(project =>{
   project.style.rotate = `${randomNum}deg`;
 })
 
+// let pageProj = document.querySelector('.page-projects');
+// pageProj.scrollLeft = 200;
+
 //
 
 let bodyHeight = document.documentElement.scrollHeight;

@@ -21,8 +21,9 @@ body{
 }
 
 .main-page{
-  margin-top: 4vh;
   width:100%;
+  margin-top: 4vh;
+  /* height: 100%; */
   /* background-color: red; */
   display: grid;
   place-content: center;
@@ -83,7 +84,6 @@ body{
   justify-content: center;
   gap: 2rem;
   flex-wrap: wrap;
-  margin-bottom: 10%;
 }
 
 .video{
