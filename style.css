@@ -4,10 +4,10 @@ html{
 
 html, body {
   overscroll-behavior-x: none;
+  /* max-width: 100vw; */
 }
 
 /* html, body {
-  max-width: 100%;
   overflow-x: hidden;
 } */
 
@@ -25,8 +25,18 @@ body{
   /* display:grid; */
   /* place-content: center; */
   font-family: 'Outfit', 'Montserrat' ,Verdana, Geneva, Tahoma, sans-serif;
+  /* font-family: 'Montserrat' ,Verdana, Geneva, Tahoma, sans-serif; */
   overflow-x: hidden;
   /* position: relative; */
+}
+
+.container{
+  /* height: 100vh; */
+  width:100vw;
+  position: relative;
+  /* Position relative stopped the empty scrolling on the right */
+  overflow-x: hidden;
+  /* Along with overflow hidden */
 }
 
 .main-page{
@@ -198,6 +208,7 @@ rect{
   translate:20% 0;
   z-index: 0;
   /* scale: calc(20vw); */
+  /* animation: name duration timing-function delay iteration-count direction fill-mode; */
 }
 
 .cover{
@@ -250,6 +261,8 @@ rect{
   width:100%;
   height: 50%; */
   margin: 5vh 0;
+  height:calc(20vw + 4rem);
+  max-height: 30rem;
   /* position: relative; */
   /* left:50%; */
   /* translate: -33.06% 0; */
@@ -274,6 +287,7 @@ rect{
   width: auto;
   border: calc(0.3rem + 0.3vw) solid #1b1b1b;
   transition: all 0.3s cubic-bezier(0.8, 0, 0.2, 1);
+  translate: max(calc((15vw - 9rem) / 2), 0.6rem) 0;
 }
 
 .project-border{
@@ -317,6 +331,8 @@ rect{
 
 .project:hover{
   rotate:0deg !important;
+  /* transform: translate(0, 0) rotate(0deg) !important; */
+  animation: none !important;
   translate: 0 -10%;
   scale:1.1;
 }
@@ -361,6 +377,8 @@ rect{
 
 .projectPages{
   margin-bottom: 8%;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 .other-page{
@@ -369,7 +387,8 @@ rect{
 
 .main-page-text{
   width:100%;
-  font-size: 10vw;
+  /* font-size: 10vw; */
+  font-size: min(10vw, 16vh);
   font-weight: 800;
   translate: 0.5rem 0;
 }
@@ -386,6 +405,7 @@ rect{
   flex-wrap: nowrap;
   /* flex-direction: row-reverse; */
   /* overflow: visible; */
+  cursor: pointer;
   overflow-x: scroll;
   padding-bottom: 10vh;
 }
@@ -411,9 +431,13 @@ rect{
   
   margin-right: 2rem;
   /* background-color: red; */
-  width:28vw;
+  /* max-width:28vw; */
+  /* width:28vw; */
+  /* max-height: 80vh; */
   /* max-height: 70vh; */
-  /* max-width: 28vw; */
+  width: min(28vw, 50vh);
+  /* We want max height to be 80vh for example
+  so since aspect ratio is 1/1.4 we do 80/1.4 = 57vh */
   aspect-ratio: 1/ 1.4;
   border: calc(0.3rem + 0.3vw) solid #1b1b1b;
   overflow: visible;
@@ -432,6 +456,7 @@ rect{
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row-reverse;
+  /* This is for the ones on the left */
   /* gap:2%; */
   position:relative;
   
@@ -451,7 +476,93 @@ rect{
   translate: calc(-0.3rem - 0.3vw) 130%;
   font-weight: 800;
   z-index: 2;
+  pointer-events: none;
   /* background-color: red; */
+}
+
+/* ------- */
+
+.art3d-page{
+  position: relative;
+  overflow-y: hidden;
+}
+
+/* .ui-web-design-page{
+  position: relative;
+  overflow: auto;
+} */
+
+.ss3DBlock1{
+  filter: brightness(1.5);
+  position: absolute;
+  right: 0;
+  bottom: 0%;
+  translate: 38% calc(8% + 10vw);
+  width: max(45vw, calc(14vh + 25vw));
+}
+
+.ss3DBlock{
+  filter: brightness(1.4);
+  position: absolute;
+  left: 0;
+  top: 0;
+  translate: -38% calc(-8% - 10vw);
+  rotate: 15deg;
+  width: max(45vw, calc(10vh + 20vw));
+  pointer-events: none;
+}
+
+.ui-web-design-page .main-page-text{
+  margin-bottom: 1rem;
+}
+
+.ui-web-design-page{
+  margin-bottom: calc(8% - 1rem);
+}
+
+.blockUI1{
+  position: absolute;
+  left: 0;
+  translate: -22% -5vh;
+  rotate: -2deg;
+  /* top: 0; */
+  width: max(50vw, calc(14vh + 25vw));
+}
+
+.blockUI1, .blockUI2{
+  /* image-rendering: pixelated; */
+  filter:contrast(1.05);
+}
+
+.blockUI2{
+  position: absolute;
+  right: 0;
+  /* bottom: 0; */
+  /* umm using this with relative from the page blocks the noise
+  from the image.. so .. */
+  rotate: -2.8deg;
+  translate: 20% calc(48% + 10vw);
+  width: max(50vw, calc(14vh + 25vw));
+  mix-blend-mode: multiply;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.photoBlock1{
+  position: absolute;
+  /* width: max(50vw, calc(14vh + 25vw)); */
+  width: 35vw;
+  /* width: calc(10vh + 20vw); */
+  left:0;
+  translate: -5% 6vh;
+}
+
+.photoBlock2{
+  position: absolute;
+  /* width: max(50vw, calc(14vh + 25vw)); */
+  width: 35vw;
+  right:0;
+  translate: 5% calc(55% + 22vw);
 }
 
 /* ------- */
@@ -475,6 +586,7 @@ rect{
 
   padding: 2rem;
   background: linear-gradient(to bottom right, #777, #111);
+  border-radius: 1rem;
 }
 
 .am1{
@@ -485,6 +597,13 @@ rect{
 .am2{
   font-size: 1.1rem;
   font-weight: 400;
+}
+
+.iframe{
+  width: min(60vw, 120rem);
+  aspect-ratio: 16/9;
+  margin-bottom: 2rem;
+  margin: 0 auto 4rem auto;
 }
 
 
