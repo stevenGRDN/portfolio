@@ -102,6 +102,7 @@ rect{
 .s-1{
   translate: 0 0;
   transform: translateX(10%);
+  z-index: 1;
 }
 
 .s-2{
@@ -150,11 +151,11 @@ rect{
 }
 
 .s-bot{
-  translate: 0 110%;
+  translate: 0 109%;
 }
 
 .s-right{
-  transform: translateX(110%);
+  transform: translateX(109%);
   border-radius: 0 0 100% 0;
 }
 
