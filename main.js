@@ -1,8 +1,10 @@
 let projects = document.querySelectorAll('.project');
 projects.forEach(project =>{
-  let randomNum = Math.floor(Math.random() * 20) - 10;
+  let randomNum = Math.floor(Math.random() * 12) - 6;
   project.style.rotate = `${randomNum}deg`;
 })
+
+let anchorClass = document.querySelectorAll('.anchor-class');
 
 // let pageProj = document.querySelector('.page-projects');
 // pageProj.scrollLeft = 200;
@@ -90,6 +92,8 @@ mousemove
 since it works fine on mobile etc we can do mouse instead of pointer
 */
 
+let allProjectAnchors
+
 sliders.forEach(slider =>{
 
   slider.addEventListener('mousedown', (e)=>{
@@ -105,14 +109,22 @@ sliders.forEach(slider =>{
 
   slider.addEventListener('mouseleave', ()=>{
     // this is when mouse leaves the page-project-container div which I don't think I'd use
+    isDown = false;
+    slider.style.cursor = 'pointer';
+    anchorClass.forEach(anchor => anchor.style.pointerEvents = 'auto');
+
   });
 
   slider.addEventListener('mouseup', ()=>{
     isDown = false;
     slider.style.cursor = 'pointer';
+    anchorClass.forEach(anchor => anchor.style.pointerEvents = 'auto');
+
   });
 
   slider.addEventListener('mousemove', (e)=>{
+    if(isDown) anchorClass.forEach(anchor => anchor.style.pointerEvents = 'none');
+    
     if(!isDown) return; // if you move mouse in slider without clicking it will return
     e.preventDefault(); // will stop selecting any text inside the div
     const currentX = e.pageX - slider.offsetLeft;
@@ -183,7 +195,15 @@ function moveRotateKeyframes(elemName, numOfSteps, duration, translateVal, rotat
 // They already exist at the top
 
 moveRotateKeyframes(movable1, 10, 50, 20, 20, 'ease', 0);
-moveRotateKeyframes(projects1, 10, 80, 10, 20, 'ease', 1);
+moveRotateKeyframes(projects1, 10, 80, 6, 10, 'ease', 1);
 moveRotateKeyframes(floatable1, 10, 50, 10, 10, 'ease', 0);
+
+function copyText() {
+
+  /* Copy text into clipboard */
+  navigator.clipboard.writeText
+      ("luchian.m16@gmail.com");
+      alert("Copied 'luchian.m16@gmail.com' Email To Clipboard");
+}
 
 // (elemName, numOfSteps, duration, translateVal, rotateVal, ease, classListNum)
