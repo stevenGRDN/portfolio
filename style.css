@@ -658,7 +658,7 @@ rect{
 .overlay-icons{
   width: min(20%, 4.5rem);
   position: fixed;
-  height:100%;
+/*   height:100%; */
   top:0.3%;
   right: 0.5%;
   /* background-color: red; */
