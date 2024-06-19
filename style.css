@@ -694,10 +694,40 @@ rect{
 .overlay-icon .email-svg{
   scale: 0.65;
   translate: 0 2%;
+  z-index: 1;
 }
 
 .email-icon{
   cursor: pointer;
+}
+
+.overlay-icon .email-svg:hover ~ .email-show{
+  clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+.email-show{
+  position: absolute;
+  width:350%;
+  height: 90%;
+  left:0;
+  top:50%;
+  font-weight: 700;
+  translate:-100% -49.5%;
+  background-color: #f9f9f9;
+  display: grid;
+  place-content: center;
+  border-radius: 0.4rem 0 0 0.4rem;
+  box-shadow: -0.2vh 0.1vh 0.5vh 0.2vh rgba(0,0,0,0.05);
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+  transition: 0.3s ease clip-path;
+}
+
+.email-show-shadow{
+  position: absolute;
+  right:0;
+  height:100%;
+  width:7%;
+  background: linear-gradient(to right,  rgba(249, 249, 249, 0), rgba(0, 0, 0, 0.05));
 }
 
 /* .projectPages:has(.page-project-img:hover) ~ .double-click-project{
