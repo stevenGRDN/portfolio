@@ -705,9 +705,13 @@ rect{
   clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);
 }
 
-.email-show{
+.overlay-icon .ig-svg:hover ~ .ig-show{
+  clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+.email-show,
+.ig-show{
   position: absolute;
-  width:350%;
   height: 90%;
   left:0;
   top:50%;
@@ -720,6 +724,15 @@ rect{
   box-shadow: -0.2vh 0.1vh 0.5vh 0.2vh rgba(0,0,0,0.05);
   clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
   transition: 0.3s ease clip-path;
+  color:#1b1b1b;
+}
+
+.email-show{
+  width:max(350%,12rem);
+}
+
+.ig-show{
+  width:max(350%,12rem);
 }
 
 .email-show-shadow{
