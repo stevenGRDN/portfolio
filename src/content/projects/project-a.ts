@@ -8,7 +8,10 @@ const project = {
   layout: "default",
 
   content: [
-    { type: "text", text: "Hello world" }
+    { type: "text", text: "Hello world" },
+    { type: "cover", src: "/portfolio/images/project-a/cover.png" },
+    { type: "cover", src: "/portfolio/images/project-a/cover-1.png" },
+    { type: "cover", src: "/portfolio/images/project-a/cover-2.png" },
   ]
 }
 
