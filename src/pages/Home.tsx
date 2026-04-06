@@ -126,7 +126,7 @@ export default function Home() {
       requestAnimationFrame(raf)
     }
 
-    lenis.on("virtual-scroll", (e) => {
+    lenis.on("virtual-scroll", () => {
       if (!continueScroll.current) continueScroll.current = true;
       // console.log("USER is scrolling", e)
     })
@@ -168,7 +168,7 @@ export default function Home() {
 
     console.log(e.currentTarget.dataset.slug);
 
-    let oldProjectName = displayProject;
+    // let oldProjectName = displayProject;
     let projectName = e.currentTarget.dataset.slug;
     
     if(projectName) setDisplayProject(prevVal => {
@@ -302,7 +302,7 @@ export default function Home() {
           <SvgLine className={styles.svgLineDetails} />
           <span className={styles.projectDetailsText}>{currentProject?.date.display}</span>
           <SvgLine className={styles.svgLineDetails} />
-          {currentProject?.extras ? currentProject.extras.map((value, index) => (
+          {currentProject?.extras ? currentProject.extras.map((value) => (
             <>
               <span className={styles.projectDetailsText}>{value}</span>
               <SvgLine className={styles.svgLineDetails} />
