@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import styles from './home.module.css';
 import { SvgSmallSS, SvgLargeSS, SvgArrow, SvgSort, SvgLine } from "../content/media/svgs";
 import { useEffect, useRef, useState } from "react";
+import Lenis from "lenis";
 
 export default function Home() {
 
@@ -16,24 +17,29 @@ export default function Home() {
   const displayTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const canMouseOver = useRef<boolean>(false);
 
+  const continueScroll = useRef<boolean>(true);
+
 
   useEffect(() => {
 
-    function consoleLogFunc(){
+    function scrollFunc(){
+      console.log(continueScroll.current);
+
+      if(!continueScroll.current) return;
       let projectContainerRect = projectContainer.current?.getBoundingClientRect();
       // console.log(document.documentElement.clientHeight, document.documentElement.offsetHeight, document.documentElement.scrollTop, projectContainerRect?.top, projectContainerRect?.height);
       
       // console.log(projectContainerRect?.top / )
+
       if(projectContainer.current && projectContainerRect && projectContainerRect.top < (document.documentElement.clientHeight / 2)){
         // Starting when half the container is in view
         canMouseOver.current = false;
-        document.addEventListener('mousemove', resetCanMouseOver);
 
 
 
         // console.log((projectContainerRect.top - document.documentElement.clientHeight), projectContainerRect?.height);
         // console.log(Math.trunc(-((projectContainerRect.top - document.documentElement.clientHeight) + (document.documentElement.clientHeight / 2)) / (projectContainerRect?.height - (document.documentElement.clientHeight / 2)) * projects.length));
-        let value = Math.trunc(-((projectContainerRect.top - document.documentElement.clientHeight) + (document.documentElement.clientHeight / 2)) / (projectContainerRect?.height - (document.documentElement.clientHeight / 2)) * projects.length);
+        let value = Math.trunc(-((projectContainerRect.top - document.documentElement.clientHeight) + (document.documentElement.clientHeight / 2)) / (projectContainerRect?.height * 1.3 - (document.documentElement.clientHeight / 2)) * projects.length);
         if(value >= projects.length) value = projects.length - 1;
         
 
@@ -41,7 +47,8 @@ export default function Home() {
           if(prevVal != projects[value].slug) projectImgs.current = [];
           return projects[value].slug;
         });
-        projectElems.current.forEach(el => el.style.background = '#fff');
+        
+        resetElemStyling();
 
         if(displayTimeout.current){
           clearTimeout(displayTimeout.current)
@@ -50,13 +57,16 @@ export default function Home() {
 
         if(projectDisplay.current) projectDisplay.current.style.opacity = '1';
 
-        projectElems.current[value].style.background = 'red';
+        // projectElems.current[value].style.background = 'red';
+        setElemStyling(projectElems.current[value]);
         // console.log(projectImgs.current);
         // console.log(value, projects[value]);
       }
       else if(projectContainer.current && projectContainerRect && projectContainerRect.top > (document.documentElement.clientHeight / 2)){
         // setDisplayProject('');
         // console.log(projectContainerRect.top);
+        resetElemStyling();
+
         setDisplayProjectNone();
         clearImgInterval();
         projectImgs.current = [];
@@ -67,6 +77,7 @@ export default function Home() {
     function resetCanMouseOver(e : any){
       // if(canMouseOver.current) return;
       canMouseOver.current = true;
+      continueScroll.current = false;
       // console.log(e.target.parentElement);
       // console.log(e.target);
 
@@ -75,29 +86,86 @@ export default function Home() {
       if(e.target.parentElement?.dataset.slug) realTarget = e.target.parentElement;
       if(e.target?.dataset.slug) realTarget = e.target;
 
+      if(!realTarget) return;
+
+      resetElemStyling();
+      if(realTarget.children[0]) setElemStyling(realTarget.children[0]);
+
+
       // console.log(realTarget.dataset.slug);
 
       if(realTarget) setDisplayProject(realTarget.dataset.slug);
-      document.removeEventListener('mousemove', resetCanMouseOver);
+      // document.removeEventListener('mousemove', resetCanMouseOver);
+    }
+
+    function continueScrollTrue(){
+      if(!continueScroll.current) continueScroll.current = true;
     }
 
 
-    document.addEventListener('scroll', consoleLogFunc);
+    document.addEventListener('scroll', scrollFunc);
+    document.addEventListener('pointerdown', continueScrollTrue)
+    document.addEventListener('mousemove', resetCanMouseOver);
+
     // document.addEventListener('mousemove', resetCanMouseOver);
 
 
     return () => {
-      document.removeEventListener('scroll', consoleLogFunc);
+      document.removeEventListener('scroll', scrollFunc);
       document.removeEventListener('mousemove', resetCanMouseOver);
+      document.removeEventListener('pointerdown', continueScrollTrue)
+
     }
   }, [])
+
+  useEffect(() => {
+    const lenis = new Lenis({lerp: 0.1});
+
+    function raf(time: number) {
+      lenis.raf(time)
+      requestAnimationFrame(raf)
+    }
+
+    lenis.on("virtual-scroll", (e) => {
+      if (!continueScroll.current) continueScroll.current = true;
+      // console.log("USER is scrolling", e)
+    })
+
+    requestAnimationFrame(raf)
+
+    return () => {
+      lenis.destroy()
+    }
+  }, [])
+
+  function setElemStyling(divElem : HTMLElement){
+    divElem.style.background = '#000';
+    divElem.style.color = '#fff';
+    divElem.querySelectorAll('svg').forEach(svg => {
+      (svg.children[0] as SVGElement).style.stroke = '#fff';
+    })
+  }
+
+  function resetElemStyling(){
+    projectElems.current.forEach(el => {
+      el.style.background = '#fff'
+      el.style.color = '#000'
+      el.querySelectorAll('svg').forEach(svg => {
+        (svg.children[0] as SVGElement).style.stroke = '#000';
+      })
+    });
+  }
 
 
   // function runFunction(e : React.MouseEvent<HTMLDivElement>){
   function runFunction(e : React.MouseEvent<HTMLAnchorElement>){
     if(!canMouseOver.current) return;
 
-    e.currentTarget.style.background = 'red';
+    // e.currentTarget.style.background = 'red';
+    resetElemStyling();
+
+    setElemStyling((e.currentTarget.children[0] as HTMLElement));
+
     console.log(e.currentTarget.dataset.slug);
 
     let oldProjectName = displayProject;
@@ -129,6 +197,8 @@ export default function Home() {
   function leaveFunction(e : React.MouseEvent<HTMLAnchorElement>){
     if(!canMouseOver.current) return;
 
+    resetElemStyling();
+
     e.currentTarget.style.background = 'inherit';
     setDisplayProjectNone();
 
@@ -151,7 +221,7 @@ export default function Home() {
       displayTimeout.current = null;
     }
 
-    if(projectDisplay.current) projectDisplay.current.style.opacity = '0.2';
+    if(projectDisplay.current) projectDisplay.current.style.opacity = '0';
 
     displayTimeout.current = setTimeout(() => {
       setDisplayProject('');
@@ -188,7 +258,7 @@ export default function Home() {
           clearImgInterval();
           
           imgInterval.current = setInterval(() => {
-            console.log(startVal);
+            // console.log(startVal);
 
             if(startVal == lengthVal){
               projectImgs.current[0].style.zIndex = '0';
@@ -206,7 +276,7 @@ export default function Home() {
             }
             else startVal++;
 
-            console.log(startVal);
+            // console.log(startVal);
           }, 1200);
           
         }
@@ -224,6 +294,22 @@ export default function Home() {
     return (
       <div ref={projectDisplay} className={styles.homeProjectDisplay}>
         {currentProject ? returnProjectCovers(currentProject) : ''}
+
+        <div className={styles.projectDetails}>
+          <span>{currentProject?.title}</span>
+          <SvgLine className={styles.svgLineDetails} />
+          <span className={styles.projectDetailsText}>{currentProject?.type}</span>
+          <SvgLine className={styles.svgLineDetails} />
+          <span className={styles.projectDetailsText}>{currentProject?.date.display}</span>
+          <SvgLine className={styles.svgLineDetails} />
+          {currentProject?.extras ? currentProject.extras.map((value, index) => (
+            <>
+              <span className={styles.projectDetailsText}>{value}</span>
+              <SvgLine className={styles.svgLineDetails} />
+            </>
+          )) : ''}
+        </div>
+
       </div>
     )
   }

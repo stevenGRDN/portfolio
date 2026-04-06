@@ -12,6 +12,7 @@ export type projectsType = {
     };
     type: string;
     tags: string[];
+    extras: string[];
     cover: string;
     layout: string;
     content: ({

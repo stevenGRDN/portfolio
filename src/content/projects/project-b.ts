@@ -3,19 +3,19 @@ const project = {
   slug: "project-b",
   date: {
     value: "2025-01-01",
-    display: '2025 - present'
+    display: '2026'
   },
-  type: "web app - business",
+  type: "web app",
   tags: ["web"],
+  extras: [],
   cover: "/images/project-a.jpg",
 
   layout: "default",
 
   content: [
-    { type: "text", text: "Hello world" },
+    { type: "text", text: "Description" },
     { type: "cover", src: "/portfolio/images/project-b/cover-1.png" },
     { type: "cover", src: "/portfolio/images/project-b/cover-2.png" },
-    { type: "cover", src: "/portfolio/images/project-b/cover-3.png" },
   ]
 }
 

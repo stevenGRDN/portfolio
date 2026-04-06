@@ -7,15 +7,16 @@ const project = {
   },
   type: "web app - business",
   tags: ["web"],
+  extras:['React - NextJS',],
   cover: "/images/project-a.jpg",
 
   layout: "default",
 
   content: [
-    { type: "text", text: "Hello world" },
-    { type: "cover", src: "/portfolio/images/project-a/cover.png" },
+    { type: "text", text: "Description" },
     { type: "cover", src: "/portfolio/images/project-a/cover-1.png" },
     { type: "cover", src: "/portfolio/images/project-a/cover-2.png" },
+    { type: "cover", src: "/portfolio/images/project-a/cover-3.png" },
   ]
 }
 
