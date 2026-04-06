@@ -106,7 +106,7 @@ div{
   letter-spacing: -2%;
   justify-content: space-between;
   width: min(80rem, 95vw);
-  margin: 6rem auto 4rem auto;
+  margin: 6rem auto 3.2rem auto;
   /* margin-top: 6rem; */
 }
 
@@ -134,11 +134,11 @@ div{
 
 .homeProjects{
   display: grid;
-  gap: 1.2rem;
-  margin-bottom: 2rem;
+  /* gap: 1.2rem; */
   position: relative;
   width: min(80rem, 95vw);
   margin: 0 auto;
+  margin-bottom: 10rem;
 }
 
 .homeProjectLink{
@@ -155,7 +155,24 @@ div{
   font-weight: 500;
   text-align: left;
   border-radius: 1rem 0;
-  
+  margin: 0.6rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  letter-spacing: -2%;
+}
+
+.secondaryProjectText{
+  opacity: 0.75;
+}
+
+.svgLine{
+  /* object-view-box: ; */
+  height: 1.5rem;
+}
+
+.svgLine path{
+  stroke-width: 5;
 }
 
 .homeProjectDisplay{
@@ -163,12 +180,15 @@ div{
   width: min(22.5rem, 35vw);
   aspect-ratio: 2 / 3;
   top: 25vh;
-  right: 25vw;
+  right: 10%;
   background-color: #fff;
   border: 0.35rem solid #000;
   /* border-radius: 1rem 0; */
   border-radius: 0 1.25rem;
   pointer-events: none;
+  transition: opacity 0.15s ease;
+  opacity: 0;
+  /* animation: projectDisplayAnim 0.15s ease 1 both; */
 }
 
 .coverContainer{
@@ -191,6 +211,10 @@ div{
   object-position: center;/* Center the image */
   transition: opacity 0.12s ease; /* Smooth opacity transition */
   z-index: 1;
+}
+
+.addedGap{
+  margin: 10rem 0;
 }
 
 
@@ -289,5 +313,14 @@ div{
 
   .homeProjectsRow{
     width: min(80rem, 90vw);
+  }
+}
+
+@keyframes projectDisplayAnim{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
   }
 }

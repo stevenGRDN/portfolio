@@ -1,11 +1,16 @@
 import projectA from "../content/projects/project-a"
+import projectB from "../content/projects/project-b"
 
-export const projects = [projectA, projectA, projectA, projectA, projectA, projectA, projectA, projectA, projectA, projectA, projectA, projectA, projectA, projectA,projectA, projectA, projectA, projectA];
+export const projects = [projectA, projectB, projectA, projectA, projectA, projectA, projectA, projectA, projectA, projectA, projectA, projectA, projectA, projectA,projectA, projectA, projectA, projectA];
 
 export type projectsType = {
     title: string;
     slug: string;
-    date: string;
+    date: {
+        value: string;
+        display: string;
+    };
+    type: string;
     tags: string[];
     cover: string;
     layout: string;
@@ -18,4 +23,4 @@ export type projectsType = {
         src: string;
         text?: undefined;
     })[];
-} | undefined
+}

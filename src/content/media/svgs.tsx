@@ -44,4 +44,12 @@ function SvgSort({className} : {className: string}){
   )
 }
 
-export { SvgSmallSS, SvgLargeSS, SvgArrow, SvgSort }
+function SvgLine({className} : {className: string}){
+  return(
+    <svg className={className} viewBox="-3 -2 19 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path opacity="0.75" d="M2.5 2.5L2.5 59.6221" stroke="black" strokeWidth="5" strokeLinecap="round"/>
+    </svg>
+  )
+}
+
+export { SvgSmallSS, SvgLargeSS, SvgArrow, SvgSort, SvgLine }

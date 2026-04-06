@@ -1,6 +1,6 @@
 const project = {
-  title: "Project A",
-  slug: "project-a",
+  title: "Project B",
+  slug: "project-b",
   date: {
     value: "2025-01-01",
     display: '2025 - present'
@@ -13,9 +13,9 @@ const project = {
 
   content: [
     { type: "text", text: "Hello world" },
-    { type: "cover", src: "/portfolio/images/project-a/cover.png" },
-    { type: "cover", src: "/portfolio/images/project-a/cover-1.png" },
-    { type: "cover", src: "/portfolio/images/project-a/cover-2.png" },
+    { type: "cover", src: "/portfolio/images/project-b/cover-1.png" },
+    { type: "cover", src: "/portfolio/images/project-b/cover-2.png" },
+    { type: "cover", src: "/portfolio/images/project-b/cover-3.png" },
   ]
 }
 
