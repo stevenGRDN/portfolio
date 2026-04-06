@@ -319,7 +319,7 @@
 
 
 /* @media (aspect-ratio > 1 / 2) and (aspect-ratio < 2 / 3){ */
-@media (aspect-ratio < 550px) and (width < 800px){
+@media (width > 550px) and (width < 800px){
   .homeCategories{
     gap: 1.2rem 1rem;
   }
