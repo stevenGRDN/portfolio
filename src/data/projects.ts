@@ -2,6 +2,10 @@ import projectA from "../content/projects/project-a"
 import projectB from "../content/projects/project-b"
 
 export const projects = [projectA, projectB, projectA, projectA, projectA, projectA, projectA, projectA, projectA, projectA, projectA, projectA, projectA, projectA,projectA, projectA, projectA, projectA];
+export const photographyProjects = projects.filter((project) => project.tags.includes("photography"));
+export const webProjects = projects.filter((project) => project.tags.includes("web"));
+export const projects3D = projects.filter((project) => project.tags.includes("3d"));
+export const otherProjects = projects.filter((project) => project.tags.includes("other"));
 
 export type projectsType = {
     title: string;

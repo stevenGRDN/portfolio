@@ -1,11 +1,11 @@
-import { projects, type projectsType } from "../data/projects"
+import { otherProjects, photographyProjects, projects, projects3D, webProjects, type projectsType } from "../data/projects"
 import { Link } from "react-router-dom"
 import styles from './home.module.css';
-import { SvgSmallSS, SvgLargeSS, SvgArrow, SvgSort, SvgLine } from "../content/media/svgs";
+import { SvgSmallSS, SvgArrow, SvgSort, SvgLine } from "../content/media/svgs";
 import { useEffect, useRef, useState } from "react";
 import Lenis from "lenis";
 
-export default function Home() {
+export default function Category({ projectType } : {projectType: string}) {
 
   // const [displayProject, setDisplayProject] = useState<string | null>('project-a');
   const [displayProject, setDisplayProject] = useState<string | null>(null);
@@ -16,16 +16,39 @@ export default function Home() {
   const projectContainer = useRef<HTMLDivElement | null>(null);
   const displayTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const homeCategories = useRef<HTMLDivElement | null>(null);
-  
   const canMouseOver = useRef<boolean>(false);
   const continueScroll = useRef<boolean>(true);
 
+  const currentProjects = useRef<projectsType[]>([]);
+  const [currentProjectsArray, setCurrentProjectsArray] = useState<projectsType[]>([]);
+
+  useEffect(() => {
+    if(projectType == 'photography') {
+      currentProjects.current = photographyProjects;
+      setCurrentProjectsArray(photographyProjects);
+    }
+
+    if(projectType == 'web') {
+      currentProjects.current = webProjects;
+      setCurrentProjectsArray(webProjects);
+    }
+
+    if(projectType == '3d') {
+      currentProjects.current = projects3D;
+      setCurrentProjectsArray(projects3D);
+    }
+
+    if(projectType == 'other') {
+      currentProjects.current = otherProjects;
+      setCurrentProjectsArray(otherProjects);
+    }
+  }, [])
 
   useEffect(() => {
 
     function scrollFunc(){
       // console.log(continueScroll.current);
+      if(currentProjects.current.length == 0) return;
 
       if(!continueScroll.current) return;
       let projectContainerRect = projectContainer.current?.getBoundingClientRect();
@@ -48,14 +71,14 @@ export default function Home() {
 
 
         // console.log((projectContainerRect.top - document.documentElement.clientHeight), projectContainerRect?.height);
-        // console.log(Math.trunc(-((projectContainerRect.top - document.documentElement.clientHeight) + (document.documentElement.clientHeight / 2)) / (projectContainerRect?.height - (document.documentElement.clientHeight / 2)) * projects.length));
-        let value = Math.trunc(-((projectContainerRect.top - document.documentElement.clientHeight) + (document.documentElement.clientHeight / 2)) / (projectContainerRect?.height * scrollMultiplier - (document.documentElement.clientHeight / 2)) * projects.length);
-        if(value >= projects.length) value = projects.length - 1;
+        // console.log(Math.trunc(-((projectContainerRect.top - document.documentElement.clientHeight) + (document.documentElement.clientHeight / 2)) / (projectContainerRect?.height - (document.documentElement.clientHeight / 2)) * currentProjects.current.length));
+        let value = Math.trunc(-((projectContainerRect.top - document.documentElement.clientHeight) + (document.documentElement.clientHeight / 2)) / (projectContainerRect?.height * scrollMultiplier - (document.documentElement.clientHeight / 2)) * currentProjects.current.length);
+        if(value >= currentProjects.current.length) value = currentProjects.current.length - 1;
         
 
         setDisplayProject(prevVal => {
-          if(prevVal != projects[value].slug) projectImgs.current = [];
-          return projects[value].slug;
+          if(prevVal != currentProjects.current[value].slug) projectImgs.current = [];
+          return currentProjects.current[value].slug;
         });
         
         resetElemStyling();
@@ -70,7 +93,7 @@ export default function Home() {
         // projectElems.current[value].style.background = 'red';
         setElemStyling(projectElems.current[value]);
         // console.log(projectImgs.current);
-        // console.log(value, projects[value]);
+        // console.log(value, currentProjects.current[value]);
       }
       else if(projectContainer.current && projectContainerRect && projectContainerRect.top > (document.documentElement.clientHeight / 2)){
         // setDisplayProject('');
@@ -164,6 +187,15 @@ export default function Home() {
       lenis.destroy()
     }
   }, []);
+
+  function returnCategoryText(){
+
+    if(projectType == 'photography') return(<div className={styles.photographyText}><p>PHOTOGRAPHY</p><p>PROJECTS</p></div>);
+    if(projectType == 'web') return(<div className={styles.webText}><p>WEB / UI</p><p>PROJECTS</p></div>);
+    if(projectType == '3d') return(<><p>3D</p><p>PROJECTS</p></>);
+    if(projectType == 'other') return(<><p>OTHER</p><p>PROJECTS</p></>);
+
+  }
 
   function setElemStyling(divElem : HTMLElement){
     divElem.style.background = '#000';
@@ -350,38 +382,10 @@ export default function Home() {
         <p>STEVENS STUDIO</p>
       </Link>
 
-      <div className={styles.homeHero}>
-        <SvgLargeSS className={styles.SvgLargeSS} />
-        <div className={styles.homeHeroText}>
-          <p>WELCOME TO</p>
-          <p>STEVENS</p>
-          {/* <p onMouseOver={() => {console.log(imgInterval.current); clearImgInterval()}}>STUDIO</p> */}
-          <p>STUDIO</p>
+      <div className={styles.categoryHero}>
+        <div className={styles.categoryHeroText}>
+          {returnCategoryText()}
         </div>
-      </div>
-
-      <div ref={homeCategories} className={styles.homeCategories}>
-        <Link className={styles.homeCategoryLF} to={`/photography/`}>
-          <div>
-            PHOTOGRAPHY
-          </div>
-        </Link>
-        <Link className={styles.homeCategorySB} to={`/3d/`}>
-          <div>
-            3D
-          </div>
-        </Link>
-        <Link className={styles.homeCategorySF} to={`/web/`}>
-          <div>
-            WEB/UI
-          </div>
-        </Link>
-        <Link className={styles.homeCategoryLB} to={`/other/`}>
-          <div>
-            OTHER
-          </div>
-        </Link>
-
       </div>
 
       <div className={styles.homeProjectsRow}>
@@ -396,7 +400,7 @@ export default function Home() {
       </div>
 
       <div ref={projectContainer} className={styles.homeProjects}>
-        {projects.map((project, index) => (
+        {currentProjectsArray.map((project, index) => (
           <Link key={index} data-slug={project.slug} onMouseEnter={(e) => runFunction(e)} onMouseLeave={(e) => leaveFunction(e)} className={styles.homeProjectLink} to={`/project/${project.slug}`}>
             {/* <div className={styles.homeProjectRow}> */}
             {/* <div ref={el => {if(el && !projectElems.current.includes(el)) projectElems.current.push(el)}} data-slug={project.slug} onMouseEnter={(e) => runFunction(e)} onMouseLeave={(e) => leaveFunction(e)} className={styles.homeProjectRow}> */}

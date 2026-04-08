@@ -5,6 +5,8 @@
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  color: inherit;
+  text-decoration: none;
 }
 
 .smallSS{
@@ -23,7 +25,8 @@
   width: 6rem;
 }
 
-.homeHero{
+.homeHero,
+.categoryHero{
   width: 100%;
   height: 46vh;
   height: 46lvh;
@@ -35,18 +38,55 @@
   /* animation: projectDisplayAnim 0.15s ease both; */
 }
 
+.categoryHero{
+  height: 30vh;
+  height: 30lvh;
+  margin-bottom: 5.5vh;
+}
+
 .homeHeroText{
   font-size: 3.1rem;
   line-height: 97.5%;
+}
+
+.categoryHeroText{
 }
 
 .homeHeroText p:nth-of-type(1){
   font-weight: 300;
 }
 
+.categoryHeroText p:nth-of-type(1){
+  font-weight: 700;
+  font-size: min(4rem, 20vw);
+}
+
+.photographyText p:nth-of-type(1){
+  font-size: min(4rem, 10vw);
+}
+
+.webText p:nth-of-type(1){
+  font-size: min(4rem, 16vw);
+}
+
 .homeHeroText p:nth-of-type(2),
 .homeHeroText p:nth-of-type(3){
   font-weight: 700;
+}
+
+.categoryHeroText p:nth-of-type(2){
+  font-weight: 550;
+  font-size: min(2.2rem, 11vw);
+  line-height: 80%;
+  opacity: 0.6;
+}
+
+.photographyText p:nth-of-type(2){
+  font-size: min(2.2rem, 5.5vw);
+}
+
+.webText p:nth-of-type(2){
+  font-size: min(2.2rem, 8.8vw);
 }
 
 .homeCategories{
@@ -61,6 +101,8 @@
 .homeCategoryLB,
 .homeCategorySF,
 .homeCategorySB{
+  color: inherit;
+  text-decoration: none;
   padding: min(4.75rem, 15vh) 0;
   font-size: 1.75rem;
   letter-spacing: -1.5%;
@@ -319,7 +361,7 @@
   .homeCategoryLF,
   .homeCategoryLB,
   .homeCategorySF,
-  .homeCategorySB{
+  .homeCategorySB{    
     padding: min(4rem, 15vh) 0;
     font-size: 1.5rem;
   }
