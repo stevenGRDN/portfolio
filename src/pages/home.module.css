@@ -32,6 +32,7 @@
   place-content: center;
   justify-items: center;
   gap: 2rem;
+  /* animation: projectDisplayAnim 0.15s ease both; */
 }
 
 .homeHeroText{
@@ -65,7 +66,14 @@
   letter-spacing: -1.5%;
   font-weight: 500;
   border: 0.35rem solid #000;
+  
 }
+
+.homeCategoryLF{ animation: displayCategories 0.5s ease 0.05s both }
+.homeCategorySB{ animation: displayCategories 0.5s ease 0.1s both}
+.homeCategorySF{ animation: displayCategories 0.5s ease 0.15s both}
+.homeCategoryLB{ animation: displayCategories 0.5s ease 0.2s both}
+
 
 .homeCategoryLF,
 .homeCategorySF{
@@ -186,9 +194,10 @@
 
 .homeProjectDisplay{
   position: fixed;
-  width: min(22.5rem, 58vw);
+  width: min(22.5rem, 58vw, 58vh);
   aspect-ratio: 2 / 3;
-  top: 25vh;
+  top: 50%;
+  translate: 0 -50%;
   right: max(calc(50vw - 36rem), 6%);
   background-color: #fff;
   border: 0.35rem solid #000;
@@ -205,7 +214,7 @@
   /* width:100%; */
   aspect-ratio: 3/4;
   /* background-color: red; */
-  margin: min(0.8rem, 2.05vw);
+  margin: min(0.8rem, 2.05vw, 2.05vh);
   overflow: hidden;
   border-radius: 0 0.6rem 0 0;
 }
@@ -228,11 +237,11 @@
 
 .projectDetails{
   display: inline;
-  font-size: min(1.25rem, 3.22vw);
+  font-size: min(1.25rem, 3.22vw, 3.22vh);
   flex-wrap: wrap;
   gap: 0.8rem;
   font-weight: 500;
-  margin: min(0.8rem, 2.05vw);
+  margin: min(0.8rem, 2.05vw, 2.05vh);
   margin-top: 0;
   min-width: 0;
   letter-spacing: -2%;
@@ -246,7 +255,7 @@
   min-width: 0;
   overflow: hidden;
   /* margin-right: 1.3rem; */
-  margin-right: min(1.3rem, 3.35vw);
+  margin-right: min(1.3rem, 3.35vw, 3.35vh);
   /* white-space: nowrap; */
   /* min-width: 0;
   text-wrap: wrap;
@@ -260,11 +269,11 @@
 .svgLineDetails{
   display: inline-block;
   vertical-align: middle;
-  margin-top: min(0.2rem, 0.515vw);
-  margin-right: min(1rem, 2.577vw);
-  margin-bottom: min(0.4rem, 1.03vw);
+  margin-top: min(0.2rem, 0.515vw, 0.515vh);
+  margin-right: min(1rem, 2.577vw, 2.577vh);
+  margin-bottom: min(0.4rem, 1.03vw, 1.03vh);
   /* margin: 0.2rem 1rem 0.4rem 0rem; */
-  height: min(1.5rem, 3.867vw);
+  height: min(1.5rem, 3.867vw, 3.867vh);
 }
 
 
@@ -377,5 +386,19 @@
   }
   100%{
     opacity: 1;
+  }
+}
+
+
+
+@keyframes displayCategories{
+  0%{
+    opacity: 0;
+    translate: 0 10%;
+  }
+
+  100%{
+    opacity: 1;
+    translate: 0 0;
   }
 }

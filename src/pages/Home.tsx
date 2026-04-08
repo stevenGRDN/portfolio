@@ -15,15 +15,17 @@ export default function Home() {
   const projectElems = useRef<HTMLElement[]>([])
   const projectContainer = useRef<HTMLDivElement | null>(null);
   const displayTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const canMouseOver = useRef<boolean>(false);
 
+  const homeCategories = useRef<HTMLDivElement | null>(null);
+  
+  const canMouseOver = useRef<boolean>(false);
   const continueScroll = useRef<boolean>(true);
 
 
   useEffect(() => {
 
     function scrollFunc(){
-      console.log(continueScroll.current);
+      // console.log(continueScroll.current);
 
       if(!continueScroll.current) return;
       let projectContainerRect = projectContainer.current?.getBoundingClientRect();
@@ -36,10 +38,22 @@ export default function Home() {
         canMouseOver.current = false;
 
 
+        let aspecRat = document.documentElement.clientWidth / document.documentElement.clientHeight;
+
+        let scrollMultiplier = Math.log(aspecRat) * 0.2;
+
+        if(scrollMultiplier > 0.2) scrollMultiplier = 0.2;
+        if(scrollMultiplier < 0) scrollMultiplier = 0;
+
+        scrollMultiplier = 1.3 - scrollMultiplier;
+
+        // console.log(scrollMultiplier);
+        
+
 
         // console.log((projectContainerRect.top - document.documentElement.clientHeight), projectContainerRect?.height);
         // console.log(Math.trunc(-((projectContainerRect.top - document.documentElement.clientHeight) + (document.documentElement.clientHeight / 2)) / (projectContainerRect?.height - (document.documentElement.clientHeight / 2)) * projects.length));
-        let value = Math.trunc(-((projectContainerRect.top - document.documentElement.clientHeight) + (document.documentElement.clientHeight / 2)) / (projectContainerRect?.height * 1.3 - (document.documentElement.clientHeight / 2)) * projects.length);
+        let value = Math.trunc(-((projectContainerRect.top - document.documentElement.clientHeight) + (document.documentElement.clientHeight / 2)) / (projectContainerRect?.height * scrollMultiplier - (document.documentElement.clientHeight / 2)) * projects.length);
         if(value >= projects.length) value = projects.length - 1;
         
 
@@ -116,7 +130,24 @@ export default function Home() {
       document.removeEventListener('pointerdown', continueScrollTrue)
 
     }
-  }, [])
+  }, []);
+
+  // useEffect(() => {
+
+  //   const observer = new IntersectionObserver(entries => {
+  //     if(entries[0].isIntersecting){
+  //       // console.log("AAAH");
+  //       let val = 0.1;
+  //       [...homeCategories.current!.children].forEach(child => {
+  //         (child as HTMLElement).style.animation = `displayCategories 0.5s ease ${val}s both`;
+  //         val += 0.05;
+  //       })
+  //     }
+  //   })
+
+  //   observer.observe(homeCategories.current!);
+
+  // }, []);
 
   useEffect(() => {
     const lenis = new Lenis({lerp: 0.1});
@@ -136,7 +167,7 @@ export default function Home() {
     return () => {
       lenis.destroy()
     }
-  }, [])
+  }, []);
 
   function setElemStyling(divElem : HTMLElement){
     divElem.style.background = '#000';
@@ -302,11 +333,11 @@ export default function Home() {
           <SvgLine className={styles.svgLineDetails} />
           <span className={styles.projectDetailsText}>{currentProject?.date.display}</span>
           <SvgLine className={styles.svgLineDetails} />
-          {currentProject?.extras ? currentProject.extras.map((value) => (
-            <>
+          {currentProject?.extras ? currentProject.extras.map((value, index) => (
+            <span key={index}>
               <span className={styles.projectDetailsText}>{value}</span>
-              <SvgLine className={styles.svgLineDetails} />
-            </>
+              <SvgLine key={"svg" + index} className={styles.svgLineDetails} />
+            </span>
           )) : ''}
         </div>
 
@@ -333,7 +364,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className={styles.homeCategories}>
+      <div ref={homeCategories} className={styles.homeCategories}>
         <div className={styles.homeCategoryLF}>
           PHOTOGRAPHY
         </div>
@@ -360,8 +391,8 @@ export default function Home() {
       </div>
 
       <div ref={projectContainer} className={styles.homeProjects}>
-        {projects.map(project => (
-          <Link data-slug={project.slug} onMouseEnter={(e) => runFunction(e)} onMouseLeave={(e) => leaveFunction(e)} className={styles.homeProjectLink} to={`/project/${project.slug}`}>
+        {projects.map((project, index) => (
+          <Link key={index} data-slug={project.slug} onMouseEnter={(e) => runFunction(e)} onMouseLeave={(e) => leaveFunction(e)} className={styles.homeProjectLink} to={`/project/${project.slug}`}>
             {/* <div className={styles.homeProjectRow}> */}
             {/* <div ref={el => {if(el && !projectElems.current.includes(el)) projectElems.current.push(el)}} data-slug={project.slug} onMouseEnter={(e) => runFunction(e)} onMouseLeave={(e) => leaveFunction(e)} className={styles.homeProjectRow}> */}
             <div ref={el => {if(el && !projectElems.current.includes(el)) projectElems.current.push(el)}} className={styles.homeProjectRow}>
