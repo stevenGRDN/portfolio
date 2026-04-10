@@ -345,10 +345,12 @@ export default function Home() {
     
     <div>
       {/* <h1>Projects</h1> */}
-      <Link className={styles.homeHeader} to={`/`}>
-        <SvgSmallSS className={styles.smallSS} />
-        <p>STEVENS STUDIO</p>
-      </Link>
+      <div className={styles.homeHeader}>
+        <Link to={`/`}>
+          <SvgSmallSS className={styles.smallSS} />
+          <p>STEVENS STUDIO</p>
+        </Link>
+      </div>
 
       <div className={styles.homeHero}>
         <SvgLargeSS className={styles.SvgLargeSS} />

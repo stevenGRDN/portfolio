@@ -1,0 +1,11 @@
+@keyframes displayTranslate10{
+  0%{
+    opacity: 0;
+    translate: 0 10%;
+  }
+
+  100%{
+    opacity: 1;
+    translate: 0 0;
+  }
+}

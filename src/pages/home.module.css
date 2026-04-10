@@ -2,7 +2,12 @@
   width:100%;
   margin: 1.8rem 0;
   padding: 0 min(2.5rem, 5vw);
-  display: flex;
+}
+
+.homeHeader a{
+  display: inline-flex;
+  justify-content: baseline;
+  float: left;
   align-items: center;
   gap: 1.5rem;
   color: inherit;
@@ -291,7 +296,7 @@
   float: left;
 }
 
-.projectDetails span{
+.projectDetails span:not(:has(span)){
   
   text-align: left;
   min-width: 0;
