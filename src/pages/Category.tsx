@@ -171,6 +171,12 @@ export default function Category({ projectType } : {projectType: string}) {
   useEffect(() => {
     const lenis = new Lenis({lerp: 0.1});
 
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: false })
+    } else {
+      window.scrollTo(0, 0)
+    }
+
     function raf(time: number) {
       lenis.raf(time)
       requestAnimationFrame(raf)
