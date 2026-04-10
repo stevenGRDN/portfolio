@@ -159,7 +159,7 @@ export default function DefaultLayout({ project } : { project : any}) {
       <>
         {allImages.map((value : any, index : number) => (
           <div key={index} className={styles.projectPhoto}>
-            <img fetchPriority={'high'} src={allImages[index].src} />
+            <img fetchPriority={'high'} src={value.src} />
 
           </div>
         ))}
@@ -177,7 +177,7 @@ export default function DefaultLayout({ project } : { project : any}) {
         {allImages.map((value : any, index : number) => (
           <div key={index} className={styles.projectScroll}>
             <div className={styles.projectScrollImgContainer}>
-              <img fetchPriority={'high'} src={allImages[index].src} />
+              <img fetchPriority={'high'} src={value.src} />
             </div>
           </div>
         ))}
